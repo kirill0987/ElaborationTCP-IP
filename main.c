@@ -2,9 +2,8 @@
 #include "MDR32F9Qx_config.h"
 #include "MDR32F9Qx_rst_clk.h"
 
-
 #include "inc/inits.h"
-#include "inc/tasks.h"
+#include "class/tcpip.h"
 
 int main(void)
 {
@@ -15,9 +14,7 @@ int main(void)
 
 	for (;;)
 	{
-		 ETH_TaskProcess(MDR_ETHERNET1);
+		 ETH_InputPachetHandler(MDR_ETHERNET1);
+		 DoNetworkStuff(MDR_ETHERNET1);
 	}
 }
-
-
-
