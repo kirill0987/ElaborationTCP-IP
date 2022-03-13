@@ -7,12 +7,6 @@
 #include "string.h"
 #include <stdint.h>
 
-/* Initalizes the LAN-controller, reset flags, starts timer-ISR */
-#define DATA_SIZE 8296
-#define DATA_LEN (int)DATA_SIZE/6
-#define DATA_LEN5 DATA_SIZE - DATA_LEN*5
-#define MAX_TCP_DATA_SIZE 1460
-
 /* Global vars and flags */
 uint32_t TCPRxDataCount = 0;              // nr. of bytes rec'd
 uint32_t TCPTxDataCount = 0;              // nr. of bytes to send
@@ -1304,7 +1298,8 @@ void ETH_InputPachetHandler(MDR_ETHERNET_TypeDef * ETHERNETx){
 	// Check that the packet is received
 	status_reg = ETH_GetMACITStatusRegister(ETHERNETx);
 
-	if(ETHERNETx->ETH_R_Head != ETHERNETx->ETH_R_Tail){
+	if(ETHERNETx->ETH_R_Head != ETHERNETx->ETH_R_Tail)
+	{
 		ETH_StatusPacketReceptionStruct.Status = ETH_ReceivedFrame(ETHERNETx, InputFrame);
 
 		if(ETH_StatusPacketReceptionStruct.Fields.UCA)
